@@ -1,0 +1,53 @@
+SCRIPT SWITCH 1
+
+enable
+configure terminal
+hostname SW-01
+enable secret lucas*enable
+ip domain-name 1rede.local
+crypto key generate rsa general-keys modulus 1024
+service password-encryption
+line console 0
+password lucas*console
+login
+line vty 0 15
+password lucas*vty
+login
+transport input ssh
+interface GigabitEthernet 0/1
+no shutdown
+description INTERFACE CONECTADA AO ROUTER
+exit
+interface vlan1
+ip address 192.168.0.254 255.255.255.0
+no shutdown
+exit
+exit
+wr
+
+SCRIPT SWITCH 2
+
+enable
+configure terminal
+hostname SW-02
+enable secret lucas*enable
+ip domain-name 1rede.local
+crypto key generate rsa general-keys modulus 1024
+service password-encryption
+line console 0
+password lucas*console
+login
+line vty 0 15
+password lucas*vty
+login
+transport input ssh
+interface GigabitEthernet 0/1
+no shutdown
+description INTERFACE CONECTADA AO ROUTER
+exit
+interface vlan1
+ip address 172.16.255.254 255.255.0.0
+no shutdown
+exit
+exit
+wr

@@ -1,0 +1,30 @@
+Enable
+configure terminal
+hostname RT-01
+no ip domain-lookup
+ip domain-name 1rede.local
+Crypto key generate rsa general-key modulus 1024
+banner motd "APENAS PESSOAS AUTORIZADAS PODEM ACESSAR ESSE EQUIPAMENTO"
+enable secret lucas*Enable
+service password-encryption 
+interface gigabitethernet 0/0
+ip address 192.168.0.1 255.255.255.0
+no shutdown
+description Rede 1
+exit
+interface gigabitethernet 0/1
+ip address 172.16.0.1 255.255.0.0
+no shutdown
+description Rede 2
+exit
+line console 0
+password lucas*Console
+login
+line vty 0 15
+password lucas*VTY
+transport input ssh
+login
+exit
+exit
+wr
+
